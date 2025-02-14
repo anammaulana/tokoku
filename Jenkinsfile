@@ -20,10 +20,11 @@ pipeline {
         //     }
         // }
 
-        stage('Deploy') {
-            steps {
-                sh 'rsync -avz .  anammaulana@147.93.105.148:8080/var/www/laravel-tokoku'
-            }
-        }
+        steps {
+        sh '''
+            rsync -avz --exclude=".git" --exclude="node_modules" --exclude="vendor" \
+            -e "ssh -p 8080" . anammaulana@147.93.105.148:/var/www/laravel-tokoku
+        '''
+          }
     }
 }
