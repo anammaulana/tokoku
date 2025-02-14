@@ -22,7 +22,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'rsync -avz .  anammaulana@147.93.105.148:/var/www/laravel-tokoku'
+                sh 'rsync -avz .  anammaulana@147.93.105.148:8080/var/www/laravel-tokoku'
             }
         }
     }
