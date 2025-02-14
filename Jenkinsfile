@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SSH_CREDENTIALS_ID = 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKEW2zh5jYcY2x3KLXA6aVA2GRMAQiAHQFiiQSRiWaz ICONPLN+anam.maulana@DESKTOP-37FDLS5'  // Ganti dengan ID kredensial SSH di Jenkins
+        SSH_CREDENTIALS_ID = 'ssh-key-anammaulana'  // Ganti dengan ID kredensial SSH di Jenkins
         SERVER_USER = 'anammaulana'
         SERVER_HOST = '147.93.105.148'
         SERVER_PORT = '8080'
@@ -22,11 +22,11 @@ pipeline {
             }
         }
 
-        // stage('Run Tests') {
-        //     steps {
-        //         sh 'php artisan test'
-        //     }
-        // }
+        stage('Run Tests') {
+            steps {
+                sh 'php artisan test'
+            }
+        }
 
         stage('Deploy') {
             steps {
