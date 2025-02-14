@@ -20,13 +20,16 @@ pipeline {
         //     }
         // }
 
-      stage('Deploy') {
+   stage('Deploy') {
     steps {
         sh '''
+            ssh -o StrictHostKeyChecking=no -p 8080 anammaulana@147.93.105.148 "echo 'SSH connection test successful'"
             rsync -avz --exclude=".git" --exclude="node_modules" --exclude="vendor" \
-            -e "ssh -p 8080" . anammaulana@147.93.105.148:/var/www/laravel-tokoku
+            -e "ssh -p 8080 -o StrictHostKeyChecking=no" . anammaulana@147.93.105.148:/var/www/laravel-tokoku
         '''
     }
+}
+
 }
     }
 }
