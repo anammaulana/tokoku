@@ -2,12 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SSH_CREDENTIALS_ID = 'b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-QyNTUxOQAAACDyhFts4eY2HGNsdyi1wOmlQNhkTAEIgB0BYokEkYlmswAAAKj2bu819m7v
-NQAAAAtzc2gtZWQyNTUxOQAAACDyhFts4eY2HGNsdyi1wOmlQNhkTAEIgB0BYokEkYlmsw
-AAAEArIqY8zJAGvHocxDwYK9rnuc70C161bzvC2UUALoN+NvKEW2zh5jYcY2x3KLXA6aVA
-2GRMAQiAHQFiiQSRiWazAAAAJElDT05QTE4rYW5hbS5tYXVsYW5hQERFU0tUT1AtMzdGRE
-xTNQE='  // Ganti dengan ID kredensial SSH di Jenkins
+        SSH_CREDENTIALS_ID = 'ssh-key-anammaulana'  // Ganti dengan ID kredensial SSH di Jenkins
         SERVER_USER = 'anammaulana'
         SERVER_HOST = '147.93.105.148'
         SERVER_PORT = '8080'
