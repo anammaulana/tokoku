@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    image: php:8.2-apache
+    container_name: laravel_apache
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    ports:
+      - "8000:80"
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/public
+    depends_on:
+      - db
+    networks:
+      - laravel
+
+  db:
+    image: postgres:15
+    container_name: laravel_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: db_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: konfirmasi
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - laravel
+
+volumes:
+  pgdata:
+
+networks:
+  laravel:
