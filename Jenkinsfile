@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SSH_CREDENTIALS_ID = 'ssh-key-anammaulana'  // ID kredensial di Jenkins
+        SSH_CREDENTIALS_ID = 'anammaulana'  // ID kredensial di Jenkins
         SERVER_USER = 'anammaulana'
         SERVER_HOST = '147.93.105.148'
         SERVER_PORT = '8080'
