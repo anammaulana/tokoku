@@ -6,7 +6,7 @@ pipeline {
         SERVER_USER = 'anammaulana'
         SERVER_HOST = '147.93.105.148'
         SERVER_PORT = '8080'
-        DEPLOY_DIR = '/var/www/laravel-tokoku'
+        DEPLOY_DIR = '/var/www/laravel-toko'
     }
 
     stages {
