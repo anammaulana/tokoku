@@ -2,11 +2,10 @@ pipeline {
     agent any
 
     environment {
-        // SSH_CREDENTIALS_ID = 'anammaulana'  // ID kredensial di Jenkins
         SSH_CREDENTIALS_ID = 'abd4393c-1330-465c-9578-ef920792da02'  // ID kredensial di Jenkins
         SERVER_USER = 'anammaulana'
         SERVER_HOST = '147.93.105.148'
-        SERVER_PORT = '8080'
+        SERVER_PORT = '8080' // Gunakan port SSH, bukan port aplikasi
         DEPLOY_DIR = '/var/www/laravel-toko'
     }
 
@@ -22,6 +21,32 @@ pipeline {
                 sh 'composer install --no-dev --optimize-autoloader'
             }
         }
+
+        stage('Deploy to Server') {
+            steps {
+                sshagent(credentials: [SSH_CREDENTIALS_ID]) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} << EOF
+                    cd ${DEPLOY_DIR}
+                    git pull origin main
+                    composer install --no-dev --optimize-autoloader
+                    php artisan migrate --force
+                    php artisan config:clear
+                    php artisan cache:clear
+                    php artisan route:clear
+                    php artisan view:clear
+                    chmod -R 775 storage bootstrap/cache
+                    chown -R www-data:www-data .
+                    systemctl restart apache2
+                    exit
+                    EOF
+                    """
+                }
+            }
+        }
+    }
+}
+
 
         // stage('Deploy') {
         //     steps {
@@ -40,5 +65,3 @@ pipeline {
         //         }
         //     }
         // }
-    }
-}
