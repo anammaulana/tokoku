@@ -22,7 +22,7 @@ pipeline {
             }
         }
 
-        stages {
+        
         stage('SSH Connection') {
             steps {
                 sshagent(['abd4393c-1330-465c-9578-ef920792da02']) {
@@ -54,7 +54,7 @@ pipeline {
         //         }
         //     }
         // }
-    }
+    // }
 }
 
 
