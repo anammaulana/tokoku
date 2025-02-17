@@ -1,61 +1,42 @@
-
+version: "3.8"
 
 services:
-  # PHP + Apache untuk Laravel
   app:
+    container_name: laravel-app
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: laravel-app
-    restart: unless-stopped
+    restart: always
     working_dir: /var/www
     volumes:
       - .:/var/www
     ports:
-      - "80:80"
+      - "8000:80"
     depends_on:
       - db
       - redis
     networks:
       - app-network
-    environment:
-      APP_ENV: local
-      APP_DEBUG: "true"
-      APP_URL: http://localhost
-      DB_CONNECTION: pgsql
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_DATABASE: db_test
-      DB_USERNAME: postgres
-      DB_PASSWORD: konfirmasi
-      CACHE_STORE: database
-      SESSION_DRIVER: database
-      QUEUE_CONNECTION: database
-      REDIS_CLIENT: phpredis
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
 
-  # PostgreSQL sebagai Database
   db:
-    image: postgres:13
-    container_name: postgres
-    restart: unless-stopped
+    image: postgres:14
+    container_name: postgres-db
+    restart: always
     environment:
       POSTGRES_DB: db_test
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: konfirmasi
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     networks:
       - app-network
 
-  # Redis sebagai Cache dan Queue
   redis:
     image: redis:latest
     container_name: redis
-    restart: unless-stopped
+    restart: always
     ports:
       - "6379:6379"
     networks:
