@@ -10,6 +10,14 @@ pipeline {
     }
 
     stages {
+        // stage('SSH Stage') {
+        //     steps {
+        //         sshagent(['abd4393c-1330-465c-9578-ef920792da02']) {
+        //             sh 'ssh -o StrictHostKeyChecking=no user@hostname "command"'
+        //         }
+        //     }
+        // }
+
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/anammaulana/tokoku.git'
