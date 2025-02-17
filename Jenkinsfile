@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+ triggers {
+        // Trigger build ketika ada perubahan pada repository
+        githubPush()
+    }
     environment {
         SSH_CREDENTIALS_ID = 'abd4393c-1330-465c-9578-ef920792da02'  // ID kredensial di Jenkins
         SERVER_USER = 'anammaulana'
@@ -10,13 +13,6 @@ pipeline {
     }
 
     stages {
-        // stage('SSH Stage') {
-        //     steps {
-        //         sshagent(['abd4393c-1330-465c-9578-ef920792da02']) {
-        //             sh 'ssh -o StrictHostKeyChecking=no user@hostname "command"'
-        //         }
-        //     }
-        // }
 
         stage('Checkout') {
             steps {
