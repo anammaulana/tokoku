@@ -22,28 +22,38 @@ pipeline {
             }
         }
 
-        stage('Deploy to Server') {
+        stages {
+        stage('SSH Connection') {
             steps {
-                sshagent(credentials: [SSH_CREDENTIALS_ID]) {
-                    sh """
-                    ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} << EOF
-                    cd ${DEPLOY_DIR}
-                    git pull origin main
-                    composer install --no-dev --optimize-autoloader
-                    php artisan migrate --force
-                    php artisan config:clear
-                    php artisan cache:clear
-                    php artisan route:clear
-                    php artisan view:clear
-                    chmod -R 775 storage bootstrap/cache
-                    chown -R www-data:www-data .
-                    systemctl restart apache2
-                    exit
-                    EOF
-                    """
+                sshagent(['abd4393c-1330-465c-9578-ef920792da02']) {
+                    sh 'ssh anammaulana@147.93.105.148 "echo Hello from Jenkins"'
                 }
             }
         }
+    }
+
+        // stage('Deploy to Server') {
+        //     steps {
+        //         sshagent(credentials: [SSH_CREDENTIALS_ID]) {
+        //             sh """
+        //             ssh -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} << EOF
+        //             cd ${DEPLOY_DIR}
+        //             git pull origin main
+        //             composer install --no-dev --optimize-autoloader
+        //             php artisan migrate --force
+        //             php artisan config:clear
+        //             php artisan cache:clear
+        //             php artisan route:clear
+        //             php artisan view:clear
+        //             chmod -R 775 storage bootstrap/cache
+        //             chown -R www-data:www-data .
+        //             systemctl restart apache2
+        //             exit
+        //             EOF
+        //             """
+        //         }
+        //     }
+        // }
     }
 }
 
