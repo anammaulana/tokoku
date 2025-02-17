@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        SSH_CREDENTIALS_ID = 'abd4393c-1330-465c-9578-ef920792da02'  // ID kredensial di Jenkins
+        SSH_CREDENTIALS_ID = 'anammaulana'  // ID kredensial di Jenkins
+        // SSH_CREDENTIALS_ID = 'abd4393c-1330-465c-9578-ef920792da02'  // ID kredensial di Jenkins
         SERVER_USER = 'anammaulana'
         SERVER_HOST = '147.93.105.148'
         SERVER_PORT = '8080'
@@ -16,11 +17,11 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'composer install --no-dev --optimize-autoloader'
-            }
-        }
+        // stage('Install Dependencies') {
+        //     steps {
+        //         sh 'composer install --no-dev --optimize-autoloader'
+        //     }
+        // }
 
         stage('Deploy') {
             steps {
