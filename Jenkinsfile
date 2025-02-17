@@ -40,7 +40,7 @@ pipeline {
                             ssh -i $SSH_KEY -o StrictHostKeyChecking=no -p $SERVER_PORT $SSH_USER@$SERVER_HOST "echo 'SSH connection test successful'"
 
                             echo "Syncing files to server..."
-                            rsync -avz -q --exclude=".git" --exclude="node_modules" --exclude="vendor" \
+                            rsync -avz -q --exclude=".git" --exclude="node_modules" --no-perms --exclude="vendor" \
                             -e "ssh -i $SSH_KEY -p $SERVER_PORT -o StrictHostKeyChecking=no" . \
                             $SSH_USER@$SERVER_HOST:$DEPLOY_DIR
                         '''
